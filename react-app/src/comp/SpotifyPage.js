@@ -5,6 +5,7 @@ import InputGroup from "react-bootstrap/InputGroup";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
+import Spinner from "react-bootstrap/Spinner";
 
 import { gql } from "apollo-boost";
 import { Query } from "react-apollo";
@@ -27,7 +28,12 @@ var artistQuery = gql`
 const DisplayArtists = ({ artistName }) => (
   <Query query={artistQuery} variables={{ artistName }}>
     {({ loading, error, data }) => {
-      if (loading) return <p>Loading...</p>;
+      if (loading)
+        return (
+          <>
+            <Spinner animation="border" variant="primary" />
+          </>
+        );
       if (error) return <p>Error :(</p>;
 
       return data.queryArtists.map(({ name, id, image, albums }) => {
