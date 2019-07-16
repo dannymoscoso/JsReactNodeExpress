@@ -28,12 +28,7 @@ var artistQuery = gql`
 const DisplayArtists = ({ artistName }) => (
   <Query query={artistQuery} variables={{ artistName }}>
     {({ loading, error, data }) => {
-      if (loading)
-        return (
-          <>
-            <Spinner animation="border" variant="primary" />
-          </>
-        );
+      if (loading) return <Spinner animation="border" variant="primary" />;
       if (error) return <p>Error :(</p>;
 
       return data.queryArtists.map(({ name, id, image, albums }) => {
